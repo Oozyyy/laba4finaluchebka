@@ -4,7 +4,6 @@ import { useFetch } from '../useFetch.js';
 import { api, money, emailRe, phoneRe } from '../api.js';
 import { State, ErrorBox, Field } from '../components/Ui.jsx';
 
-// Форма редактирования личных данных
 function InfoForm() {
   const { user, setUser } = useAuth();
   const [form, setForm] = useState({ fullName: user.fullName, email: user.email, phone: user.phone, address: user.address || '' });
@@ -44,7 +43,6 @@ function InfoForm() {
   );
 }
 
-// Форма смены пароля
 function PasswordForm() {
   const [form, setForm] = useState({ oldPassword: '', newPassword: '', confirm: '' });
   const [errors, setErrors] = useState({});
@@ -82,7 +80,6 @@ function PasswordForm() {
   );
 }
 
-// Список заказов пользователя
 function Orders() {
   const { data, loading, error, reload } = useFetch('/me/orders');
   return (
@@ -106,7 +103,6 @@ function Orders() {
   );
 }
 
-// Личный кабинет
 export default function Profile() {
   return (
     <>
