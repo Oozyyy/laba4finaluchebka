@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { api, emailRe } from '../api.js';
 import { Field, ErrorBox } from '../components/Ui.jsx';
 
-// Восстановление пароля: запрашиваем ссылку для сброса
 export default function Forgot() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
