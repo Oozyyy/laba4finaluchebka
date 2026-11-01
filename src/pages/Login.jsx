@@ -4,7 +4,6 @@ import { useAuth } from '../contexts/AuthContext.jsx';
 import { Field, ErrorBox } from '../components/Ui.jsx';
 import { emailRe } from '../api.js';
 
-// Форма авторизации
 export default function Login() {
   const { authenticate } = useAuth();
   const navigate = useNavigate();
@@ -14,7 +13,6 @@ export default function Login() {
   const [serverError, setServerError] = useState('');
   const [busy, setBusy] = useState(false);
 
-  // Проверка полей перед отправкой
   function validate() {
     const e = {};
     if (!form.email.trim()) e.email = 'Введите email';
