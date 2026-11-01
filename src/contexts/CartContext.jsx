@@ -5,7 +5,6 @@ import { useAuth } from './AuthContext.jsx';
 const CartContext = createContext(null);
 export const useCart = () => useContext(CartContext);
 
-// Провайдер корзины: данные берутся с сервера, у каждого пользователя своя корзина
 export function CartProvider({ children }) {
   const { user } = useAuth();
   const [items, setItems] = useState([]);
