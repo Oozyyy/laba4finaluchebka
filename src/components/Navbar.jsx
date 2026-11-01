@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useCart } from '../contexts/CartContext.jsx';
 
-// Верхняя навигация с кнопкой выхода
 export default function Navbar() {
   const { user, logout } = useAuth();
   const { items } = useCart();
