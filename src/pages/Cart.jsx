@@ -5,7 +5,6 @@ import { useAuth } from '../contexts/AuthContext.jsx';
 import { api, money, todayStr } from '../api.js';
 import { State, ErrorBox, Field } from '../components/Ui.jsx';
 
-// Страница корзины и оформление заказа
 export default function Cart() {
   const { user } = useAuth();
   const { items, loading, error, reload, setQty, remove } = useCart();
@@ -22,7 +21,6 @@ export default function Cart() {
     try { await fn(); } catch (e) { setServerError(e.message); }
   }
 
-  // Проверка адреса и даты доставки
   function validate() {
     const e = {};
     if (form.address.trim().length < 5) e.address = 'Введите адрес (минимум 5 символов)';
