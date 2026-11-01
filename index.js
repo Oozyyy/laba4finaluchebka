@@ -64,7 +64,6 @@ app.post('/api/auth/login', (req, res) => {
   res.json({ token: makeToken(u.id) });
 });
 
-// Восстановление пароля: без почтового сервера ссылка возвращается в ответе
 app.post('/api/auth/forgot', (req, res) => {
   const email = String(req.body.email || '').trim().toLowerCase();
   if (!emailRe.test(email)) return bad(res, 'Введите корректный email');
