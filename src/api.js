@@ -1,4 +1,4 @@
-// Универсальная функция запроса к API с токеном и обработкой ошибок
+
 export async function api(path, { method = 'GET', body } = {}) {
   const token = localStorage.getItem('token');
   let res;
@@ -12,7 +12,7 @@ export async function api(path, { method = 'GET', body } = {}) {
     throw new Error('Сервер недоступен. Проверьте, что API запущен.');
   }
   let data = null;
-  try { data = await res.json(); } catch { /* пустой ответ */ }
+  try { data = await res.json(); } catch { }
   if (!res.ok) {
     if (res.status === 401 && token) localStorage.removeItem('token');
     throw new Error((data && data.error) || 'Ошибка сервера');
