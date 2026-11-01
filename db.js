@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS password_resets (
 );
 `);
 
-// Начальное наполнение справочников и демо-данных
+
 if (db.prepare('SELECT COUNT(*) c FROM roles').get().c === 0) {
   db.prepare('INSERT INTO roles (name) VALUES (?)').run('admin');
   db.prepare('INSERT INTO roles (name) VALUES (?)').run('user');
