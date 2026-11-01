@@ -10,7 +10,6 @@ import Reset from './pages/Reset.jsx';
 import Profile from './pages/Profile.jsx';
 import Admin from './pages/Admin.jsx';
 
-// Корневой компонент: маршруты приложения
 export default function App() {
   return (
     <>
