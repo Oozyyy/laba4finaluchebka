@@ -4,7 +4,6 @@ import { useAuth } from '../contexts/AuthContext.jsx';
 import { Field, ErrorBox } from '../components/Ui.jsx';
 import { emailRe, phoneRe } from '../api.js';
 
-// Форма регистрации
 export default function Register() {
   const { authenticate } = useAuth();
   const navigate = useNavigate();
@@ -14,7 +13,6 @@ export default function Register() {
   const [busy, setBusy] = useState(false);
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
-  // Проверка всех полей формы
   function validate() {
     const e = {};
     const name = form.fullName.trim();
