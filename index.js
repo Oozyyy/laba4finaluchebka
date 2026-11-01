@@ -14,7 +14,7 @@ const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const phoneRe = /^\+?[0-9\s\-()]{10,18}$/;
 const bad = (res, msg, code = 400) => res.status(code).json({ error: msg });
 
-// Проверка полей пользователя, возвращает текст ошибки или null
+
 function validateUser({ fullName, email, phone, address }, { partial = false } = {}) {
   if (typeof fullName !== 'string' || fullName.trim().length < 2 || fullName.trim().length > 100) return 'Полное имя: от 2 до 100 символов';
   if (!/[A-Za-zА-Яа-яЁё]/.test(fullName)) return 'Полное имя должно содержать буквы';
@@ -25,7 +25,7 @@ function validateUser({ fullName, email, phone, address }, { partial = false } =
 }
 const validPassword = (p) => typeof p === 'string' && p.length >= 6 && p.length <= 64;
 
-// Загрузка текущего пользователя по токену (JOIN с таблицей ролей)
+
 function auth(req, res, next) {
   const h = req.headers.authorization || '';
   try {
@@ -44,7 +44,7 @@ const publicUser = (u) => ({ fullName: u.full_name, email: u.email, phone: u.pho
 const makeToken = (id) => jwt.sign({ id }, SECRET, { expiresIn: '7d' });
 const roleId = (n) => db.prepare('SELECT id FROM roles WHERE name=?').get(n).id;
 
-//  Авторизация 
+
 app.post('/api/auth/register', (req, res) => {
   const err = validateUser(req.body);
   if (err) return bad(res, err);
@@ -86,7 +86,7 @@ app.post('/api/auth/reset', (req, res) => {
   res.json({ ok: true });
 });
 
-//  Личный кабинет
+
 app.get('/api/me', auth, (req, res) => res.json(publicUser(req.user)));
 
 app.put('/api/me', auth, (req, res) => {
@@ -112,7 +112,6 @@ app.put('/api/me/password', auth, (req, res) => {
 
 app.get('/api/me/orders', auth, (req, res) => res.json(loadOrders('WHERE o.user_id = ?', [req.user.id])));
 
-// Заказы вместе с позициями (JOIN со статусами и пользователями)
 function loadOrders(where = '', params = []) {
   const orders = db.prepare(`SELECT o.id, o.address, o.delivery_date, o.created_at, st.name AS status,
       u.full_name AS customer, u.email AS customer_email
@@ -125,7 +124,6 @@ function loadOrders(where = '', params = []) {
   });
 }
 
-// Каталог 
 app.get('/api/categories', (req, res) => res.json(db.prepare('SELECT id, name FROM categories ORDER BY name').all()));
 
 app.get('/api/services', (req, res) => {
@@ -141,7 +139,6 @@ app.get('/api/services', (req, res) => {
   res.json(rows);
 });
 
-// Отзывы 
 app.get('/api/services/:id/reviews', (req, res) => {
   res.json(db.prepare(`SELECT r.id, r.rating, r.comment, r.created_at, u.full_name AS author
     FROM reviews r JOIN users u ON u.id=r.user_id WHERE r.service_id=? ORDER BY r.id DESC`).all(req.params.id));
@@ -158,7 +155,6 @@ app.post('/api/services/:id/reviews', auth, (req, res) => {
   res.status(201).json({ ok: true });
 });
 
-// Корзина
 function cartOf(userId) {
   return db.prepare(`SELECT ci.id, ci.quantity, s.title, s.price, s.duration_minutes, c.name AS category,
       ci.quantity * s.price AS total
@@ -187,7 +183,6 @@ app.delete('/api/cart/:id', auth, (req, res) => {
   res.json(cartOf(req.user.id));
 });
 
-// Заказы
 app.post('/api/orders', auth, (req, res) => {
   const address = String(req.body.address || '').trim();
   const date = String(req.body.deliveryDate || '');
@@ -214,7 +209,6 @@ app.post('/api/orders', auth, (req, res) => {
   res.status(201).json({ ok: true });
 });
 
-// Администратор
 const admin = express.Router();
 app.use('/api/admin', auth, adminOnly, admin);
 
