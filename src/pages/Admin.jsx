@@ -3,14 +3,12 @@ import { useFetch } from '../useFetch.js';
 import { api, money, emailRe, phoneRe } from '../api.js';
 import { State, ErrorBox, Field } from '../components/Ui.jsx';
 
-// Выполнить действие администратора с подтверждением и показом ошибки
 async function run(action, setError, after, confirmText) {
   if (confirmText && !window.confirm(confirmText)) return;
   setError('');
   try { await action(); await after(); } catch (e) { setError(e.message); }
 }
 
-// Управление услугами: добавление, изменение, удаление
 function ServicesTab() {
   const list = useFetch('/services');
   const cats = useFetch('/categories');
@@ -86,8 +84,6 @@ function ServicesTab() {
     </>
   );
 }
-
-// Управление категориями
 function CategoriesTab() {
   const list = useFetch('/categories');
   const [name, setName] = useState('');
@@ -134,7 +130,6 @@ function CategoriesTab() {
   );
 }
 
-// Управление заказами: смена статуса и удаление
 function OrdersTab() {
   const list = useFetch('/admin/orders');
   const statuses = useFetch('/admin/statuses');
@@ -163,7 +158,6 @@ function OrdersTab() {
   );
 }
 
-// Управление отзывами: редактирование и удаление
 function ReviewsTab() {
   const list = useFetch('/admin/reviews');
   const [editing, setEditing] = useState(null);
@@ -206,7 +200,6 @@ function ReviewsTab() {
   );
 }
 
-// Управление пользователями
 function UsersTab() {
   const list = useFetch('/admin/users');
   const [editing, setEditing] = useState(null);
@@ -254,7 +247,6 @@ function UsersTab() {
 
 const TABS = { Услуги: ServicesTab, Категории: CategoriesTab, Заказы: OrdersTab, Отзывы: ReviewsTab, Пользователи: UsersTab };
 
-// Админ-панель с вкладками
 export default function Admin() {
   const [tab, setTab] = useState('Услуги');
   const Current = TABS[tab];
