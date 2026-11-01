@@ -3,7 +3,6 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { api } from '../api.js';
 import { Field, ErrorBox } from '../components/Ui.jsx';
 
-// Установка нового пароля по ссылке
 export default function Reset() {
   const { token } = useParams();
   const navigate = useNavigate();
