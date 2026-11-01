@@ -6,7 +6,6 @@ import { useCart } from '../contexts/CartContext.jsx';
 import { api, money } from '../api.js';
 import { State, ErrorBox } from '../components/Ui.jsx';
 
-// Блок отзывов по услуге: список и форма добавления
 function Reviews({ serviceId, onChanged }) {
   const { user } = useAuth();
   const { data, loading, error, reload } = useFetch(`/services/${serviceId}/reviews`);
@@ -58,7 +57,6 @@ function Reviews({ serviceId, onChanged }) {
   );
 }
 
-// Страница каталога услуг с фильтрами
 export default function Catalog() {
   const { user } = useAuth();
   const { add } = useCart();
@@ -76,7 +74,6 @@ export default function Catalog() {
 
   const priceError = min !== '' && max !== '' && Number(min) > Number(max) ? 'Минимальная цена больше максимальной' : '';
 
-  // Добавление услуги в серверную корзину
   async function addToCart(s) {
     if (!user) return navigate('/login', { state: { from: '/' } });
     setActionError('');
